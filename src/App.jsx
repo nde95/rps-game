@@ -1,6 +1,8 @@
+import { GameSpace } from "./components/gameboard";
+
 const App = () => {
   return (
-    <div className="tester">Welcome</div>
+    <GameSpace />
   );
 };
 
