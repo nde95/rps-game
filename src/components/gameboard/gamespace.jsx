@@ -10,15 +10,34 @@ const GameSpace = () => {
 
     const generateGameObjects = () => {
         const objects = [];
+
         for (let i = 1; i <= numberOfID1; i++) {
-            objects.push({ id: 1, left: Math.random() * 500, top: Math.random() * 500 });
+            // Create ID 1 objects in the top left third
+            objects.push({
+                id: 1,
+                left: Math.random() * (window.innerWidth / 3), // Left within the left third
+                top: Math.random() * (window.innerHeight / 3), // Top within the top third
+            });
         }
+
         for (let i = 1; i <= numberOfID2; i++) {
-            objects.push({ id: 2, left: Math.random() * 500, top: Math.random() * 500 });
+            // Create ID 2 objects in the top right third
+            objects.push({
+                id: 2,
+                left: (window.innerWidth / 3) * 2 + Math.random() * (window.innerWidth / 3), // Left within the right third
+                top: Math.random() * (window.innerHeight / 3), // Top within the top third
+            });
         }
+
         for (let i = 1; i <= numberOfID3; i++) {
-            objects.push({ id: 3, left: Math.random() * 500, top: Math.random() * 500 });
+            // Create ID 3 objects in the bottom center third
+            objects.push({
+                id: 3,
+                left: (window.innerWidth / 3) + Math.random() * (window.innerWidth / 3), // Left within the center third
+                top: (window.innerHeight / 3) * 2 + Math.random() * (window.innerHeight / 3), // Top within the bottom third
+            });
         }
+
         return objects.map((obj, index) => ({
             ...obj,
             renderKey: obj.id + '-' + index, // Use a separate key for rendering
