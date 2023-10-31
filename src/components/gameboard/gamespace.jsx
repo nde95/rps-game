@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import GameObject from './gameobject';
+import './game.css';
 
 const GameSpace = () => {
-    // Define the initial state for game objects
     const [gameObjects, setGameObjects] = useState([
-        { id: 1, left: 10, top: 10 },
-        { id: 2, left: 50, top: 50 },
-        { id: 3, left: 100, top: 100 },
+        { id: 1, left: Math.random() * 500, top: Math.random() * 500 },
+        { id: 2, left: Math.random() * 500, top: Math.random() * 500 },
+        { id: 3, left: Math.random() * 500, top: Math.random() * 500 },
     ]);
 
-    // Your movement and interaction logic can go here, for example, using useEffect for animation
+    const updateGameObjects = () => {
+        setGameObjects(prevGameObjects => {
+            // Calculate the new positions based on the previous positions
+            const updatedGameObjects = prevGameObjects.map(obj => ({
+                ...obj,
+                left: obj.left + Math.random() * 10,
+                top: obj.top + Math.random() * 10,
+            }));
+            return updatedGameObjects;
+        });
+    };
+    // Use an effect to continuously update the game object positions
+    useEffect(() => {
+        const interval = setInterval(updateGameObjects, 1000); // Adjust the time interval as needed
+        return () => clearInterval(interval); // Clean up the interval on unmount
+    }, []);
 
     return (
         <div id="game-space">
