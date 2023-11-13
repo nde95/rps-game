@@ -58,22 +58,49 @@ const GameSpace = () => {
                     case 1: // Scissors
                         const target3 = prevGameObjects.find(targetObj => targetObj.id === 3);
                         if (target3) {
-                            deltaX = (target3.left - obj.left) / 10;
-                            deltaY = (target3.top - obj.top) / 10;
+                            // Check the relative strength
+                            const strength = getStrength(obj.id, target3.id);
+                            if (strength > 0) {
+                                // Seek
+                                deltaX = (target3.left - obj.left) / 10;
+                                deltaY = (target3.top - obj.top) / 10;
+                            } else {
+                                // Avoid
+                                deltaX = (obj.left - target3.left) / 10;
+                                deltaY = (obj.top - target3.top) / 10;
+                            }
                         }
                         break;
                     case 2: // Rock
                         const target1 = prevGameObjects.find(targetObj => targetObj.id === 1);
                         if (target1) {
-                            deltaX = (target1.left - obj.left) / 10;
-                            deltaY = (target1.top - obj.top) / 10;
+                            // Check the relative strength
+                            const strength = getStrength(obj.id, target1.id);
+                            if (strength > 0) {
+                                // Seek
+                                deltaX = (target1.left - obj.left) / 10;
+                                deltaY = (target1.top - obj.top) / 10;
+                            } else {
+                                // Avoid
+                                deltaX = (obj.left - target1.left) / 10;
+                                deltaY = (obj.top - target1.top) / 10;
+                            }
                         }
                         break;
                     case 3: // Paper
                         const target2 = prevGameObjects.find(targetObj => targetObj.id === 2);
                         if (target2) {
-                            deltaX = (target2.left - obj.left) / 10;
-                            deltaY = (target2.top - obj.top) / 10;
+                            // Check the relative strength
+                            const strength = getStrength(obj.id, target2.id);
+                            if (strength > 0) {
+                                // Seek
+                                deltaX = (target2.left - obj.left) / 10;
+                                deltaY = (target2.top - obj.top) / 10;
+                            } else {
+                                // Avoid
+                                deltaX = (obj.left - target2.left) / 10;
+                                deltaY = (obj.top - target2.top) / 10;
+                            }
                         }
                         break;
                     default:
@@ -81,16 +108,32 @@ const GameSpace = () => {
                 }
 
                 // Update the position based on calculated deltas
+                const newLeft = obj.left + deltaX;
+                const newTop = obj.top + deltaY;
+
+                // Perform boundary checks to ensure objects stay within the game area
+                const boundaryX = window.innerWidth - 30; // Adjust as needed
+                const boundaryY = window.innerHeight - 30; // Adjust as needed
+
                 return {
                     ...obj,
-                    left: obj.left + deltaX,
-                    top: obj.top + deltaY,
+                    left: Math.max(0, Math.min(newLeft, boundaryX)),
+                    top: Math.max(0, Math.min(newTop, boundaryY)),
                 };
             });
 
             return updatedGameObjects;
         });
     };
+
+    // Function to determine the relative strength between two IDs
+    const getStrength = (id1, id2) => {
+        // Define your strength rules here
+        // For simplicity, let's assume higher ID is stronger, but you can define your own logic
+        return id1 - id2;
+    };
+
+
 
 
 
