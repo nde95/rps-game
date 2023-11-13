@@ -49,15 +49,22 @@ const GameSpace = () => {
     // Movement of created objects 
     const updateGameObjects = () => {
         setGameObjects(prevGameObjects => {
-            // Calculate the new positions based on the previous positions
+            // Randomly determine the sign for each axis
+            const signX = Math.random() < 0.5 ? 1 : -1; // +1 for right, -1 for left
+            const signY = Math.random() < 0.5 ? 1 : -1; // +1 for down, -1 for up
+
+            // Calculate the new positions based on the previous positions and random signs
             const updatedGameObjects = prevGameObjects.map(obj => ({
                 ...obj,
-                left: obj.left + Math.random() * 10,
-                top: obj.top + Math.random() * 10,
+                left: obj.left + signX * Math.random() * 10,
+                top: obj.top + signY * Math.random() * 10,
             }));
+
             return updatedGameObjects;
         });
     };
+
+
     // Use an effect to continuously update the game object positions
     useEffect(() => {
         const interval = setInterval(updateGameObjects, 1000); // Adjust the time interval as needed
