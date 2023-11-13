@@ -49,20 +49,49 @@ const GameSpace = () => {
     // Movement of created objects 
     const updateGameObjects = () => {
         setGameObjects(prevGameObjects => {
-            // Randomly determine the sign for each axis
-            const signX = Math.random() < 0.5 ? 1 : -1; // +1 for right, -1 for left
-            const signY = Math.random() < 0.5 ? 1 : -1; // +1 for down, -1 for up
+            const updatedGameObjects = prevGameObjects.map(obj => {
+                let deltaX = 0;
+                let deltaY = 0;
 
-            // Calculate the new positions based on the previous positions and random signs
-            const updatedGameObjects = prevGameObjects.map(obj => ({
-                ...obj,
-                left: obj.left + signX * Math.random() * 10,
-                top: obj.top + signY * Math.random() * 10,
-            }));
+                // Check the ID of the current object and adjust movement accordingly
+                switch (obj.id) {
+                    case 1: // Scissors
+                        const target3 = prevGameObjects.find(targetObj => targetObj.id === 3);
+                        if (target3) {
+                            deltaX = (target3.left - obj.left) / 10;
+                            deltaY = (target3.top - obj.top) / 10;
+                        }
+                        break;
+                    case 2: // Rock
+                        const target1 = prevGameObjects.find(targetObj => targetObj.id === 1);
+                        if (target1) {
+                            deltaX = (target1.left - obj.left) / 10;
+                            deltaY = (target1.top - obj.top) / 10;
+                        }
+                        break;
+                    case 3: // Paper
+                        const target2 = prevGameObjects.find(targetObj => targetObj.id === 2);
+                        if (target2) {
+                            deltaX = (target2.left - obj.left) / 10;
+                            deltaY = (target2.top - obj.top) / 10;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+                // Update the position based on calculated deltas
+                return {
+                    ...obj,
+                    left: obj.left + deltaX,
+                    top: obj.top + deltaY,
+                };
+            });
 
             return updatedGameObjects;
         });
     };
+
 
 
     // Use an effect to continuously update the game object positions
