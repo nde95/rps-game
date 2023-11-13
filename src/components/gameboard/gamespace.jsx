@@ -4,9 +4,9 @@ import './game.css';
 
 const GameSpace = () => {
     // Number of each to spawn
-    const numberOfID1 = 3;
-    const numberOfID2 = 2;
-    const numberOfID3 = 4;
+    const numberOfID1 = 3; // Scissors
+    const numberOfID2 = 3; // Rock
+    const numberOfID3 = 3; // Paper
 
     const generateGameObjects = () => {
         const objects = [];
@@ -46,6 +46,15 @@ const GameSpace = () => {
 
     const [gameObjects, setGameObjects] = useState(generateGameObjects);
 
+
+    // Function to determine the relative strength between two IDs
+    const getStrength = (id1, id2) => {
+        const strength = id1 - id2;
+        console.log(`Strength between ${id1} and ${id2}: ${strength}`);
+        return strength;
+    };
+
+
     // Movement of created objects 
     const updateGameObjects = () => {
         setGameObjects(prevGameObjects => {
@@ -53,53 +62,89 @@ const GameSpace = () => {
                 let deltaX = 0;
                 let deltaY = 0;
 
+                // Declare variables outside the switch
+                let targetScissors, targetRock, targetPaper;
+
                 // Check the ID of the current object and adjust movement accordingly
                 switch (obj.id) {
                     case 1: // Scissors
-                        const target3 = prevGameObjects.find(targetObj => targetObj.id === 3);
-                        if (target3) {
-                            // Check the relative strength
-                            const strength = getStrength(obj.id, target3.id);
-                            if (strength > 0) {
-                                // Seek
-                                deltaX = (target3.left - obj.left) / 10;
-                                deltaY = (target3.top - obj.top) / 10;
-                            } else {
-                                // Avoid
-                                deltaX = (obj.left - target3.left) / 10;
-                                deltaY = (obj.top - target3.top) / 10;
+                        targetRock = prevGameObjects.find(targetObj => targetObj.id === 2);
+                        targetPaper = prevGameObjects.find(targetObj => targetObj.id === 3);
+
+                        if (targetRock && targetPaper) {
+                            // Check the relative strengths
+                            const strengthToRock = getStrength(obj.id, targetRock.id);
+                            const strengthToPaper = getStrength(obj.id, targetPaper.id);
+
+                            // Check the distances
+                            const distanceToRock = Math.sqrt((obj.left - targetRock.left) ** 2 + (obj.top - targetRock.top) ** 2);
+                            const distanceToPaper = Math.sqrt((obj.left - targetPaper.left) ** 2 + (obj.top - targetPaper.top) ** 2);
+
+                            // Adjust movement based on strengths and distances
+                            if (strengthToPaper > 0 && distanceToPaper > 50) {
+                                // Seek Paper
+                                console.log("seek paper");
+                                deltaX = (targetPaper.left - obj.left) / 10;
+                                deltaY = (targetPaper.top - obj.top) / 10;
+                            } else if (strengthToRock < 0 && distanceToRock > 50) {
+                                // Avoid Rock
+                                console.log("avoid rock");
+                                deltaX = (obj.left - targetRock.left) / 10;
+                                deltaY = (obj.top - targetRock.top) / 10;
                             }
                         }
                         break;
                     case 2: // Rock
-                        const target1 = prevGameObjects.find(targetObj => targetObj.id === 1);
-                        if (target1) {
-                            // Check the relative strength
-                            const strength = getStrength(obj.id, target1.id);
-                            if (strength > 0) {
-                                // Seek
-                                deltaX = (target1.left - obj.left) / 10;
-                                deltaY = (target1.top - obj.top) / 10;
-                            } else {
-                                // Avoid
-                                deltaX = (obj.left - target1.left) / 10;
-                                deltaY = (obj.top - target1.top) / 10;
+                        targetScissors = prevGameObjects.find(targetObj => targetObj.id === 1);
+                        targetPaper = prevGameObjects.find(targetObj => targetObj.id === 3);
+
+                        if (targetScissors && targetPaper) {
+                            // Check the relative strengths
+                            const strengthToScissors = getStrength(obj.id, targetScissors.id);
+                            const strengthToPaper = getStrength(obj.id, targetPaper.id);
+
+                            // Check the distances
+                            const distanceToScissors = Math.sqrt((obj.left - targetScissors.left) ** 2 + (obj.top - targetScissors.top) ** 2);
+                            const distanceToPaper = Math.sqrt((obj.left - targetPaper.left) ** 2 + (obj.top - targetPaper.top) ** 2);
+
+                            // Adjust movement based on strengths and distances
+                            if (strengthToScissors > 0 && distanceToScissors > 50) {
+                                // Seek Scissors
+                                console.log("seek scissors");
+                                deltaX = (targetScissors.left - obj.left) / 10;
+                                deltaY = (targetScissors.top - obj.top) / 10;
+                            } else if (strengthToPaper < 0 && distanceToPaper > 50) {
+                                // Avoid Paper
+                                console.log("avoid paper");
+                                deltaX = (obj.left - targetPaper.left) / 10;
+                                deltaY = (obj.top - targetPaper.top) / 10;
                             }
                         }
                         break;
                     case 3: // Paper
-                        const target2 = prevGameObjects.find(targetObj => targetObj.id === 2);
-                        if (target2) {
-                            // Check the relative strength
-                            const strength = getStrength(obj.id, target2.id);
-                            if (strength > 0) {
-                                // Seek
-                                deltaX = (target2.left - obj.left) / 10;
-                                deltaY = (target2.top - obj.top) / 10;
-                            } else {
-                                // Avoid
-                                deltaX = (obj.left - target2.left) / 10;
-                                deltaY = (obj.top - target2.top) / 10;
+                        targetScissors = prevGameObjects.find(targetObj => targetObj.id === 1);
+                        targetRock = prevGameObjects.find(targetObj => targetObj.id === 2);
+
+                        if (targetScissors && targetRock) {
+                            // Check the relative strengths
+                            const strengthToScissors = getStrength(obj.id, targetScissors.id);
+                            const strengthToRock = getStrength(obj.id, targetRock.id);
+
+                            // Check the distances
+                            const distanceToScissors = Math.sqrt((obj.left - targetScissors.left) ** 2 + (obj.top - targetScissors.top) ** 2);
+                            const distanceToRock = Math.sqrt((obj.left - targetRock.left) ** 2 + (obj.top - targetRock.top) ** 2);
+
+                            // Adjust movement based on strengths and distances
+                            if (strengthToRock > 0 && distanceToRock > 50) {
+                                // Seek Rock
+                                console.log("seek rock");
+                                deltaX = (targetRock.left - obj.left) / 10;
+                                deltaY = (targetRock.top - obj.top) / 10;
+                            } else if (strengthToScissors < 0 && distanceToScissors > 50) {
+                                // Avoid Scissors
+                                console.log("avoid scissors");
+                                deltaX = (obj.left - targetScissors.left) / 10;
+                                deltaY = (obj.top - targetScissors.top) / 10;
                             }
                         }
                         break;
@@ -125,14 +170,6 @@ const GameSpace = () => {
             return updatedGameObjects;
         });
     };
-
-    // Function to determine the relative strength between two IDs
-    const getStrength = (id1, id2) => {
-        // Define your strength rules here
-        // For simplicity, let's assume higher ID is stronger, but you can define your own logic
-        return id1 - id2;
-    };
-
 
 
 
