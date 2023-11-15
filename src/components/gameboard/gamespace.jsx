@@ -48,11 +48,11 @@ const GameSpace = () => {
 
 
     // Function to determine the relative strength between two IDs
-    const getStrength = (id1, id2) => {
-        const strength = id1 - id2;
-        console.log(`Strength between ${id1} and ${id2}: ${strength}`);
-        return strength;
-    };
+    // const getStrength = (id1, id2) => {
+    //     const strength = id1 - id2;
+    //     console.log(`Strength between ${id1} and ${id2}: ${strength}`);
+    //     return strength;
+    // };
 
 
     // Movement of created objects
