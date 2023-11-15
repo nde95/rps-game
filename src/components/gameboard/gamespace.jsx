@@ -80,6 +80,12 @@ const GameSpace = () => {
                                 (obj.left - targetPaper.left) ** 2 + (obj.top - targetPaper.top) ** 2
                             );
 
+                            // Check for catching
+                            if (distanceToRock < 100) {
+                                console.log('Scissors caught by Rock');
+                                return { ...obj, id: 2, state: 'caught' }; // Update ID and state
+                            }
+
                             // Adjust movement based on distances
                             if (distanceToRock < distanceToPaper && distanceToRock < 30) {
                                 // Avoid Rock
@@ -108,6 +114,12 @@ const GameSpace = () => {
                                 (obj.left - targetPaper.left) ** 2 + (obj.top - targetPaper.top) ** 2
                             );
 
+                            // Check for catching
+                            if (distanceToPaper < 100) {
+                                console.log('Rock caught by Paper');
+                                return { ...obj, id: 3, state: 'caught' }; // Update ID and state
+                            }
+
                             // Adjust movement based on distances
                             if (distanceToPaper < distanceToScissors && distanceToPaper < 30) {
                                 // Avoid Paper
@@ -135,6 +147,12 @@ const GameSpace = () => {
                             const distanceToRock = Math.sqrt(
                                 (obj.left - targetRock.left) ** 2 + (obj.top - targetRock.top) ** 2
                             );
+
+                            // Check for catching
+                            if (distanceToScissors < 100) {
+                                console.log('Paper caught by Scissors');
+                                return { ...obj, id: 1, state: 'caught' }; // Update ID and state
+                            }
 
                             // Adjust movement based on distances
                             if (distanceToScissors < distanceToRock && distanceToScissors < 30) {
