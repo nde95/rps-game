@@ -5,8 +5,8 @@ import './game.css';
 const GameSpace = () => {
     // Number of each to spawn
     const numberOfID1 = 3; // Scissors
-    const numberOfID2 = 3; // Rock
-    const numberOfID3 = 0; // Paper
+    const numberOfID2 = 0; // Rock
+    const numberOfID3 = 3; // Paper
 
     const generateGameObjects = () => {
         const objects = [];
@@ -46,15 +46,6 @@ const GameSpace = () => {
 
     const [gameObjects, setGameObjects] = useState(generateGameObjects);
 
-
-    // Function to determine the relative strength between two IDs
-    // const getStrength = (id1, id2) => {
-    //     const strength = id1 - id2;
-    //     console.log(`Strength between ${id1} and ${id2}: ${strength}`);
-    //     return strength;
-    // };
-
-
     // Movement of created objects
     const updateGameObjects = () => {
         setGameObjects((prevGameObjects) => {
@@ -71,18 +62,18 @@ const GameSpace = () => {
                         targetRock = prevGameObjects.find((targetObj) => targetObj.id === 2);
                         targetPaper = prevGameObjects.find((targetObj) => targetObj.id === 3);
 
-                        // Adjust movement based on distances if targetRock is present
+                        // Adjust movement based on distances
                         if (targetRock) {
                             const distanceToRock = calculateDistance(obj, targetRock);
                             const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToRock < 100 && distanceToRock < distanceToPaper) {
+                            if (distanceToRock < 100) {
                                 console.log('Scissors caught by Rock');
                                 return { ...obj, id: 2, state: 'caught' }; // Update ID and state
                             }
 
-                            // Avoid Rock or Seek Paper based on distances
+                            // Adjust movement based on distances
                             if (distanceToRock < distanceToPaper && distanceToRock < 30) {
                                 console.log('Scissors Avoiding Rock');
                                 obj.state = 'avoiding';
@@ -94,7 +85,6 @@ const GameSpace = () => {
                                 deltaY = targetPaper ? (targetPaper.top - obj.top) / 10 : 0;
                             }
                         } else {
-                            // Seek Paper if targetRock is not present
                             console.log('Scissors Seeking Paper');
                             deltaX = targetPaper ? (targetPaper.left - obj.left) / 10 : 0;
                             deltaY = targetPaper ? (targetPaper.top - obj.top) / 10 : 0;
@@ -105,10 +95,10 @@ const GameSpace = () => {
                         targetScissors = prevGameObjects.find((targetObj) => targetObj.id === 1);
                         targetPaper = prevGameObjects.find((targetObj) => targetObj.id === 3);
 
-                        // Adjust movement based on distances if targetScissors is present
+                        // Adjust movement based on distances
                         if (targetScissors) {
-                            const distanceToScissors = calculateDistance(obj, targetScissors);
-                            const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
+                            const distanceToPaper = calculateDistance(obj, targetPaper);
+                            const distanceToScissors = targetScissors ? calculateDistance(obj, targetScissors) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
                             if (distanceToPaper < 100) {
@@ -116,7 +106,7 @@ const GameSpace = () => {
                                 return { ...obj, id: 3, state: 'caught' }; // Update ID and state
                             }
 
-                            // Avoid Paper or Seek Scissors based on distances
+                            // Adjust movement based on distances
                             if (distanceToPaper < distanceToScissors && distanceToPaper < 30) {
                                 console.log('Rock Avoiding Paper');
                                 obj.state = 'avoiding';
@@ -128,7 +118,6 @@ const GameSpace = () => {
                                 deltaY = targetScissors ? (targetScissors.top - obj.top) / 10 : 0;
                             }
                         } else {
-                            // Seek Scissors if targetScissors is not present
                             console.log('Rock Seeking Scissors');
                             deltaX = targetScissors ? (targetScissors.left - obj.left) / 10 : 0;
                             deltaY = targetScissors ? (targetScissors.top - obj.top) / 10 : 0;
@@ -139,18 +128,18 @@ const GameSpace = () => {
                         targetScissors = prevGameObjects.find((targetObj) => targetObj.id === 1);
                         targetRock = prevGameObjects.find((targetObj) => targetObj.id === 2);
 
-                        // Adjust movement based on distances if targetScissors is present
+                        // Adjust movement based on distances
                         if (targetScissors) {
                             const distanceToScissors = calculateDistance(obj, targetScissors);
                             const distanceToRock = targetRock ? calculateDistance(obj, targetRock) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToScissors < 100 && distanceToScissors < distanceToRock) {
+                            if (distanceToScissors < 100) {
                                 console.log('Paper caught by Scissors');
                                 return { ...obj, id: 1, state: 'caught' }; // Update ID and state
                             }
 
-                            // Avoid Scissors or Seek Rock based on distances
+                            // Adjust movement based on distances
                             if (distanceToScissors < distanceToRock && distanceToScissors < 30) {
                                 console.log('Paper Avoiding Scissors');
                                 obj.state = 'avoiding';
@@ -162,7 +151,6 @@ const GameSpace = () => {
                                 deltaY = targetRock ? (targetRock.top - obj.top) / 10 : 0;
                             }
                         } else {
-                            // Seek Rock if targetScissors is not present
                             console.log('Paper Seeking Rock');
                             deltaX = targetRock ? (targetRock.left - obj.left) / 10 : 0;
                             deltaY = targetRock ? (targetRock.top - obj.top) / 10 : 0;
@@ -194,7 +182,13 @@ const GameSpace = () => {
 
     // Helper function to calculate distance between two objects
     const calculateDistance = (obj1, obj2) => {
-        return Math.sqrt((obj1.left - obj2.left) ** 2 + (obj1.top - obj2.top) ** 2);
+        // Check if obj2 is defined before accessing its properties
+        if (obj2) {
+            return Math.sqrt((obj1.left - obj2.left) ** 2 + (obj1.top - obj2.top) ** 2);
+        } else {
+            // Return a default value or handle the case when obj2 is undefined
+            return Number.POSITIVE_INFINITY;
+        }
     };
 
 
