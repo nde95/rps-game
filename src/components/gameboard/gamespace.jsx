@@ -12,7 +12,7 @@ const GameSpace = () => {
         const objects = [];
 
         for (let i = 1; i <= numberOfID1; i++) {
-            // Create ID 1 objects in the top left third
+            // Create ID 1 (Scissors) objects in the top left third
             objects.push({
                 id: 1,
                 left: Math.random() * (window.innerWidth / 3), // Left within the left third
@@ -21,7 +21,7 @@ const GameSpace = () => {
         }
 
         for (let i = 1; i <= numberOfID2; i++) {
-            // Create ID 2 objects in the top right third
+            // Create ID 2 (Rocks) objects in the top right third
             objects.push({
                 id: 2,
                 left: (window.innerWidth / 3) * 2 + Math.random() * (window.innerWidth / 3), // Left within the right third
@@ -30,7 +30,7 @@ const GameSpace = () => {
         }
 
         for (let i = 1; i <= numberOfID3; i++) {
-            // Create ID 3 objects in the bottom center third
+            // Create ID 3 (Papers) objects in the bottom center third
             objects.push({
                 id: 3,
                 left: (window.innerWidth / 3) + Math.random() * (window.innerWidth / 3), // Left within the center third
