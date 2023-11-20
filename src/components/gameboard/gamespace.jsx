@@ -96,23 +96,23 @@ const GameSpace = () => {
 
                             // Check for catching
                             if (distanceToRock < 50) {
-                                console.log('Scissors caught by Rock');
+                                // console.log('Scissors caught by Rock');
                                 return { ...obj, id: 2 }; // Update ID and state
                             }
 
                             // Adjust movement based on distances
-                            if (distanceToRock < distanceToPaper && distanceToRock < 30) {
-                                console.log('Scissors Avoiding Rock');
+                            if (distanceToRock < distanceToPaper && distanceToRock < 100) {
+                                // console.log('Scissors Avoiding Rock');
                                 obj.state = 'avoiding';
                                 deltaX = (obj.left - targetRock.left > 0 ? stepSize : -stepSize);
                                 deltaY = (obj.top - targetRock.top > 0 ? stepSize : -stepSize);
                             } else {
-                                console.log('Scissors Seeking Paper');
+                                // console.log('Scissors Seeking Paper');
                                 deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
-                            console.log('Scissors Seeking Paper');
+                            // console.log('Scissors Seeking Paper');
                             deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
@@ -126,23 +126,23 @@ const GameSpace = () => {
 
                             // Check for catching
                             if (distanceToPaper < 50) {
-                                console.log('Rock caught by Paper');
+                                // console.log('Rock caught by Paper');
                                 return { ...obj, id: 3 }; // Update ID and state
                             }
 
                             // Adjust movement based on distances
-                            if (distanceToPaper < distanceToScissors && distanceToPaper < 30) {
-                                console.log('Rock Avoiding Paper');
+                            if (distanceToPaper < distanceToScissors && distanceToPaper < 100) {
+                                // console.log('Rock Avoiding Paper');
                                 obj.state = 'avoiding';
                                 deltaX = (obj.left - targetPaper.left > 0 ? stepSize : -stepSize);
                                 deltaY = (obj.top - targetPaper.top > 0 ? stepSize : -stepSize);
                             } else {
-                                console.log('Rock Seeking Scissors');
+                                // console.log('Rock Seeking Scissors');
                                 deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
-                            console.log('Rock Seeking Scissors');
+                            // console.log('Rock Seeking Scissors');
                             deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
@@ -156,18 +156,18 @@ const GameSpace = () => {
 
                             // Check for catching
                             if (distanceToScissors < 50) {
-                                console.log('Paper caught by Scissors');
+                                // console.log('Paper caught by Scissors');
                                 return { ...obj, id: 1 }; // Update ID and state
                             }
 
                             // Adjust movement based on distances
-                            if (distanceToScissors < distanceToRock && distanceToScissors < 30) {
-                                console.log('Paper Avoiding Scissors');
+                            if (distanceToScissors < distanceToRock && distanceToScissors < 100) {
+                                // console.log('Paper Avoiding Scissors');
                                 obj.state = 'avoiding';
                                 deltaX = (obj.left - targetScissors.left > 0 ? stepSize : -stepSize);
                                 deltaY = (obj.top - targetScissors.top > 0 ? stepSize : -stepSize);
                             } else {
-                                console.log('Paper Seeking Rock');
+                                // console.log('Paper Seeking Rock');
                                 deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
