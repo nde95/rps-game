@@ -4,9 +4,9 @@ import './game.css';
 
 const GameSpace = () => {
     // Number of each to spawn
-    const numberOfID1 = 3; // Scissors
-    const numberOfID2 = 0; // Rock
-    const numberOfID3 = 3; // Paper
+    const numberOfID1 = 5; // Scissors
+    const numberOfID2 = 5; // Rock
+    const numberOfID3 = 5; // Paper
 
     const generateGameObjects = () => {
         const objects = [];
@@ -56,6 +56,9 @@ const GameSpace = () => {
                 // Declare variables outside the switch
                 let targetScissors, targetRock, targetPaper;
 
+                // Use a fixed pixel distance for movement
+                const stepSize = 5; // Adjust as needed
+
                 // Check the ID of the current object and adjust movement accordingly
                 switch (obj.id) {
                     case 1: // Scissors
@@ -77,17 +80,17 @@ const GameSpace = () => {
                             if (distanceToRock < distanceToPaper && distanceToRock < 30) {
                                 console.log('Scissors Avoiding Rock');
                                 obj.state = 'avoiding';
-                                deltaX = (obj.left - targetRock.left) / 10;
-                                deltaY = (obj.top - targetRock.top) / 10;
+                                deltaX = (obj.left - targetRock.left > 0 ? stepSize : -stepSize);
+                                deltaY = (obj.top - targetRock.top > 0 ? stepSize : -stepSize);
                             } else {
                                 console.log('Scissors Seeking Paper');
-                                deltaX = targetPaper ? (targetPaper.left - obj.left) / 10 : 0;
-                                deltaY = targetPaper ? (targetPaper.top - obj.top) / 10 : 0;
+                                deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
+                                deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
                             console.log('Scissors Seeking Paper');
-                            deltaX = targetPaper ? (targetPaper.left - obj.left) / 10 : 0;
-                            deltaY = targetPaper ? (targetPaper.top - obj.top) / 10 : 0;
+                            deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
+                            deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
                         break;
 
@@ -109,12 +112,12 @@ const GameSpace = () => {
                         if (distanceToPaper < distanceToScissors && distanceToPaper < 30) {
                             console.log('Rock Avoiding Paper');
                             obj.state = 'avoiding';
-                            deltaX = (obj.left - targetPaper.left) / 10;
-                            deltaY = (obj.top - targetPaper.top) / 10;
+                            deltaX = (obj.left - targetPaper.left > 0 ? stepSize : -stepSize);
+                            deltaY = (obj.top - targetPaper.top > 0 ? stepSize : -stepSize);
                         } else {
                             console.log('Rock Seeking Scissors');
-                            deltaX = targetScissors ? (targetScissors.left - obj.left) / 10 : 0;
-                            deltaY = targetScissors ? (targetScissors.top - obj.top) / 10 : 0;
+                            deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
+                            deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
                         break;
 
@@ -137,17 +140,17 @@ const GameSpace = () => {
                             if (distanceToScissors < distanceToRock && distanceToScissors < 30) {
                                 console.log('Paper Avoiding Scissors');
                                 obj.state = 'avoiding';
-                                deltaX = (obj.left - targetScissors.left) / 10;
-                                deltaY = (obj.top - targetScissors.top) / 10;
+                                deltaX = (obj.left - targetScissors.left > 0 ? stepSize : -stepSize);
+                                deltaY = (obj.top - targetScissors.top > 0 ? stepSize : -stepSize);
                             } else {
                                 console.log('Paper Seeking Rock');
-                                deltaX = targetRock ? (targetRock.left - obj.left) / 10 : 0;
-                                deltaY = targetRock ? (targetRock.top - obj.top) / 10 : 0;
+                                deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
+                                deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
                             console.log('Paper Seeking Rock');
-                            deltaX = targetRock ? (targetRock.left - obj.left) / 10 : 0;
-                            deltaY = targetRock ? (targetRock.top - obj.top) / 10 : 0;
+                            deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
+                            deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
                         break;
 
