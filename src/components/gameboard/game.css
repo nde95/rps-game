@@ -7,16 +7,16 @@
 }
 
 .object-1 {
-  background-color: blue;
-  color: white;
+  background-image: url("../../assets/scissors.png");
+  background-size: cover;
 }
 
 .object-2 {
-  background-color: red;
-  color: black;
+  background-image: url("../../assets/rock.png");
+  background-size: cover;
 }
 
 .object-3 {
-  background-color: green;
-  color: white;
+  background-image: url("../../assets/paper.png");
+  background-size: cover;
 }
