@@ -57,7 +57,7 @@ const GameSpace = () => {
                 let targetRock, targetPaper, targetScissors;
 
                 // Use a fixed pixel distance for movement
-                const stepSize = 5; // Adjust as needed
+                const stepSize = 7; // Adjust as needed
 
                 // Filter objects to get only the relevant targets for each instance
                 const otherObjects = prevGameObjects.filter((targetObj) => targetObj.id !== obj.id);
@@ -95,7 +95,7 @@ const GameSpace = () => {
                             const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToRock < 100) {
+                            if (distanceToRock < 50) {
                                 console.log('Scissors caught by Rock');
                                 return { ...obj, id: 2 }; // Update ID and state
                             }
@@ -125,7 +125,7 @@ const GameSpace = () => {
                             const distanceToScissors = targetScissors ? calculateDistance(obj, targetScissors) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToPaper < 100) {
+                            if (distanceToPaper < 50) {
                                 console.log('Rock caught by Paper');
                                 return { ...obj, id: 3 }; // Update ID and state
                             }
@@ -155,7 +155,7 @@ const GameSpace = () => {
                             const distanceToRock = targetRock ? calculateDistance(obj, targetRock) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToScissors < 100) {
+                            if (distanceToScissors < 50) {
                                 console.log('Paper caught by Scissors');
                                 return { ...obj, id: 1 }; // Update ID and state
                             }
@@ -217,7 +217,7 @@ const GameSpace = () => {
 
     // Use an effect to continuously update the game object positions
     useEffect(() => {
-        const interval = setInterval(updateGameObjects, 500); // Adjust the time interval as needed
+        const interval = setInterval(updateGameObjects, 100); // Adjust the time interval as needed
         return () => clearInterval(interval); // Clean up the interval on unmount
     }, []);
 
