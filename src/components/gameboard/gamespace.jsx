@@ -4,9 +4,9 @@ import './game.css';
 
 const GameSpace = () => {
     // Number of each to spawn
-    const numberOfID1 = 5; // Scissors
-    const numberOfID2 = 5; // Rock
-    const numberOfID3 = 5; // Paper
+    const numberOfID1 = 10; // Scissors
+    const numberOfID2 = 10; // Rock
+    const numberOfID3 = 10; // Paper
 
     const generateGameObjects = () => {
         const objects = [];
