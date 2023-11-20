@@ -34,7 +34,7 @@ const GameSpace = () => {
             objects.push({
                 id: 3,
                 left: (window.innerWidth / 3) + Math.random() * (window.innerWidth / 3), // Left within the center third
-                top: (window.innerHeight / 3) * 2 + Math.random() * (window.innerHeight / 3), // Top within the bottom third
+                top: (window.innerHeight / 3) * 2.5 + Math.random() * (window.innerHeight / 3), // Top within the bottom third
             });
         }
 
@@ -57,7 +57,7 @@ const GameSpace = () => {
                 let targetRock, targetPaper, targetScissors;
 
                 // Use a fixed pixel distance for movement
-                const stepSize = 7; // Adjust as needed
+                const stepSize = 6; // Adjust as needed
 
                 // Filter objects to get only the relevant targets for each instance
                 const otherObjects = prevGameObjects.filter((targetObj) => targetObj.id !== obj.id);
