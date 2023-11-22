@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GameObject from './gameobject';
 import './game.css';
+import snippingSound from '../../assets/sounds/snip.mp3'
 
 const GameSpace = () => {
     // Number of each to spawn
@@ -97,7 +98,7 @@ const GameSpace = () => {
                             // Check for catching
                             if (distanceToRock < 50) {
                                 // console.log('Scissors caught by Rock');
-                                return { ...obj, id: 2 }; // Update ID and state
+                                return { ...obj, id: 2 }; // Update ID and state                              
                             }
 
                             // Adjust movement based on distances
@@ -159,6 +160,14 @@ const GameSpace = () => {
                                 // console.log('Paper caught by Scissors');
                                 return { ...obj, id: 1 }; // Update ID and state
                             }
+
+                            // Audio option after muted and game start is added 
+                            // if (!muted && distanceToScissors < 50) {
+                            //     // console.log('Paper caught by Scissors');
+                            //     const snipped = new Audio(snippingSound)
+                            //     snipped.play()
+                            //     return { ...obj, id: 1 }; // Update ID and state
+                            // }
 
                             // Adjust movement based on distances
                             if (distanceToScissors < distanceToRock && distanceToScissors < 100) {
