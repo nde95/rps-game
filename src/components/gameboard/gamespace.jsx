@@ -58,7 +58,15 @@ const GameSpace = () => {
                 let targetRock, targetPaper, targetScissors;
 
                 // Use a fixed pixel distance for movement
-                const stepSize = 6; // Adjust as needed
+                let stepSize = 0;
+
+                if (obj.state === 'avoiding') {
+                    stepSize = 4.5;
+                } else {
+                    stepSize = 6;
+                }
+
+                // const stepSize = 6; // Adjust as needed
 
                 // Filter objects to get only the relevant targets for each instance
                 const otherObjects = prevGameObjects.filter((targetObj) => targetObj.id !== obj.id);
@@ -109,11 +117,13 @@ const GameSpace = () => {
                                 deltaY = (obj.top - targetRock.top > 0 ? stepSize : -stepSize);
                             } else {
                                 // console.log('Scissors Seeking Paper');
+                                obj.state = 'seeking';
                                 deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
                             // console.log('Scissors Seeking Paper');
+                            obj.state = 'seeking';
                             deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
@@ -139,11 +149,13 @@ const GameSpace = () => {
                                 deltaY = (obj.top - targetPaper.top > 0 ? stepSize : -stepSize);
                             } else {
                                 // console.log('Rock Seeking Scissors');
+                                obj.state = 'seeking';
                                 deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
                             // console.log('Rock Seeking Scissors');
+                            obj.state = 'seeking';
                             deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
@@ -177,11 +189,13 @@ const GameSpace = () => {
                                 deltaY = (obj.top - targetScissors.top > 0 ? stepSize : -stepSize);
                             } else {
                                 // console.log('Paper Seeking Rock');
+                                obj.state = 'seeking';
                                 deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
-                            console.log('Paper Seeking Rock');
+                            // console.log('Paper Seeking Rock');
+                            obj.state = 'seeking';
                             deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                         }
