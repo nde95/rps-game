@@ -5,7 +5,7 @@ import snippingSound from '../../assets/sounds/snip.mp3'
 import crushingSound from '../../assets/sounds/rock.mp3'
 import crumpleSound from '../../assets/sounds/crumple.mp3'
 
-const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
+const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted }) => {
     const [gameOver, setGameOver] = useState(false);
 
     const generateGameObjects = () => {
@@ -103,15 +103,12 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
                             const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            // if (distanceToRock < 50) {
-                            //     // console.log('Scissors caught by Rock');
-                            //     return { ...obj, id: 2 }; // Update ID and state                              
-                            // }
-
                             if (distanceToRock < 50) {
-                                // console.log('Paper caught by Scissors');
-                                const crushed = new Audio(crushingSound)
-                                crushed.play()
+                                // console.log('Scissors caught by Rock');
+                                if (!muted) {
+                                    const crushed = new Audio(crushingSound)
+                                    crushed.play()
+                                }
                                 return { ...obj, id: 2 }; // Update ID and state
                             }
 
@@ -142,17 +139,15 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
                             const distanceToScissors = targetScissors ? calculateDistance(obj, targetScissors) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            // if (distanceToPaper < 50) {
-                            //     // console.log('Rock caught by Paper');
-                            //     return { ...obj, id: 3 }; // Update ID and state
-                            // }
-
                             if (distanceToPaper < 50) {
-                                // console.log('Paper caught by Scissors');
-                                const crumpled = new Audio(crumpleSound)
-                                crumpled.play()
+                                // console.log('Rock caught by Paper');
+                                if (!muted) {
+                                    const crumpled = new Audio(crumpleSound)
+                                    crumpled.play()
+                                }
                                 return { ...obj, id: 3 }; // Update ID and state
                             }
+
 
                             // Adjust movement based on distances
                             if (distanceToPaper < distanceToScissors && distanceToPaper < 100) {
@@ -181,16 +176,12 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
                             const distanceToRock = targetRock ? calculateDistance(obj, targetRock) : Number.POSITIVE_INFINITY;
 
                             // // Check for catching
-                            // if (distanceToScissors < 50) {
-                            //     // console.log('Paper caught by Scissors');
-                            //     return { ...obj, id: 1 }; // Update ID and state
-                            // }
-
-                            // Audio option after muted and game start is added 
                             if (distanceToScissors < 50) {
                                 // console.log('Paper caught by Scissors');
-                                const snipped = new Audio(snippingSound)
-                                snipped.play()
+                                if (!muted) {
+                                    const snipped = new Audio(snippingSound)
+                                    snipped.play()
+                                }
                                 return { ...obj, id: 1 }; // Update ID and state
                             }
 
