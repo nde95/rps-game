@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import GameObject from './gameobject';
 import './game.css';
 import snippingSound from '../../assets/sounds/snip.mp3'
+import crushingSound from '../../assets/sounds/rock.mp3'
+import crumpleSound from '../../assets/sounds/crumple.mp3'
 
 const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
     const [gameOver, setGameOver] = useState(false);
@@ -101,9 +103,16 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
                             const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
+                            // if (distanceToRock < 50) {
+                            //     // console.log('Scissors caught by Rock');
+                            //     return { ...obj, id: 2 }; // Update ID and state                              
+                            // }
+
                             if (distanceToRock < 50) {
-                                // console.log('Scissors caught by Rock');
-                                return { ...obj, id: 2 }; // Update ID and state                              
+                                // console.log('Paper caught by Scissors');
+                                const crushed = new Audio(crushingSound)
+                                crushed.play()
+                                return { ...obj, id: 2 }; // Update ID and state
                             }
 
                             // Adjust movement based on distances
@@ -133,8 +142,15 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
                             const distanceToScissors = targetScissors ? calculateDistance(obj, targetScissors) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
+                            // if (distanceToPaper < 50) {
+                            //     // console.log('Rock caught by Paper');
+                            //     return { ...obj, id: 3 }; // Update ID and state
+                            // }
+
                             if (distanceToPaper < 50) {
-                                // console.log('Rock caught by Paper');
+                                // console.log('Paper caught by Scissors');
+                                const crumpled = new Audio(crumpleSound)
+                                crumpled.play()
                                 return { ...obj, id: 3 }; // Update ID and state
                             }
 
@@ -164,19 +180,19 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
                             const distanceToScissors = calculateDistance(obj, targetScissors);
                             const distanceToRock = targetRock ? calculateDistance(obj, targetRock) : Number.POSITIVE_INFINITY;
 
-                            // Check for catching
-                            if (distanceToScissors < 50) {
-                                // console.log('Paper caught by Scissors');
-                                return { ...obj, id: 1 }; // Update ID and state
-                            }
-
-                            // Audio option after muted and game start is added 
-                            // if (!muted && distanceToScissors < 50) {
+                            // // Check for catching
+                            // if (distanceToScissors < 50) {
                             //     // console.log('Paper caught by Scissors');
-                            //     const snipped = new Audio(snippingSound)
-                            //     snipped.play()
                             //     return { ...obj, id: 1 }; // Update ID and state
                             // }
+
+                            // Audio option after muted and game start is added 
+                            if (distanceToScissors < 50) {
+                                // console.log('Paper caught by Scissors');
+                                const snipped = new Audio(snippingSound)
+                                snipped.play()
+                                return { ...obj, id: 1 }; // Update ID and state
+                            }
 
                             // Adjust movement based on distances
                             if (distanceToScissors < distanceToRock && distanceToScissors < 100) {
