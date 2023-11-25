@@ -4,6 +4,7 @@ import './game.css';
 import snippingSound from '../../assets/sounds/snip.mp3'
 
 const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
+    const [gameOver, setGameOver] = useState(false);
 
     const generateGameObjects = () => {
         const objects = [];
@@ -231,9 +232,6 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
         }
     };
 
-
-
-
     // Use an effect to continuously update the game object positions
     useEffect(() => {
         const interval = setInterval(updateGameObjects, 100); // Adjust the time interval as needed
@@ -241,13 +239,15 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
     }, []);
 
     useEffect(() => {
+
         const remainingIDs = new Set(gameObjects.map((obj) => obj.id));
-        if (remainingIDs.size === 1) {
+        if (remainingIDs.size === 1 && !gameOver) {
+            setGameOver(true);
             // Game over, trigger the callback with the winning ID
             const winnerId = remainingIDs.values().next().value;
             onGameOver(winnerId);
         }
-    }, [gameObjects, onGameOver]);
+    }, [gameObjects, onGameOver, gameOver]);
 
     return (
         <div id="game-space">
