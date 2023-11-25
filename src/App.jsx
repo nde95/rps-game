@@ -1,46 +1,29 @@
-import SweetAlert2 from "react-sweetalert2";
-import Swal from 'sweetalert2';
-import { GameSpace } from "./components/gameboard";
+import { useState } from 'react';
+import { GameSpace } from './components/gameboard';
 import './App.css';
-import { useState } from "react";
+import GameOver from './components/alert/gameOver';
 
 const App = () => {
   const [restartGame, setRestartGame] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [winnerId, setWinnerId] = useState(null);
 
   const handleRestartGame = () => {
     setRestartGame((prev) => !prev);
+    setGameOver(false);
   };
 
   const handleGameOver = (winnerId) => {
-    let winnerMessage = '';
-
-    // Determine which ID won and customize the message
-    switch (winnerId) {
-      case 1:
-        winnerMessage = 'Scissors won!';
-        break;
-      case 2:
-        winnerMessage = 'Rock won!';
-        break;
-      case 3:
-        winnerMessage = 'Paper won!';
-        break;
-      default:
-        winnerMessage = 'Game Over!';
-    }
-
-    // Game over alert
-    Swal.fire({
-      title: winnerMessage,
-      text: 'Do you want to continue',
-      icon: 'success',
-      confirmButtonText: 'Cool'
-    });
+    setWinnerId(winnerId);
+    setGameOver(true);
   };
 
   return (
     <>
-      <button className="menuButton" onClick={handleRestartGame}>Restart Game</button>
+      <button className="menuButton" onClick={handleRestartGame}>
+        Restart Game
+      </button>
+      {gameOver ? <GameOver winnerId={winnerId} handleRestartGame={handleRestartGame} /> : null}
       <GameSpace
         key={restartGame} // Add a key to GameSpace to force remount on restart
         numberOfID1={10} // Scissors
@@ -53,4 +36,3 @@ const App = () => {
 };
 
 export default App;
-
