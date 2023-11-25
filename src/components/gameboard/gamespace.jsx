@@ -3,7 +3,7 @@ import GameObject from './gameobject';
 import './game.css';
 import snippingSound from '../../assets/sounds/snip.mp3'
 
-const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3 }) => {
+const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
 
     const generateGameObjects = () => {
         const objects = [];
@@ -239,6 +239,14 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3 }) => {
         const interval = setInterval(updateGameObjects, 100); // Adjust the time interval as needed
         return () => clearInterval(interval); // Clean up the interval on unmount
     }, []);
+
+    useEffect(() => {
+        const remainingIDs = new Set(gameObjects.map((obj) => obj.id));
+        if (remainingIDs.size === 1) {
+            // Game over, trigger the callback
+            onGameOver();
+        }
+    }, [gameObjects, onGameOver]);
 
     return (
         <div id="game-space">

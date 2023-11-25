@@ -9,6 +9,11 @@ const App = () => {
     setRestartGame((prev) => !prev);
   };
 
+  const handleGameOver = () => {
+    // Add logic for displaying a game over message or any other actions
+    alert('Game Over!');
+  };
+
   return (
     <>
       <button className="menuButton" onClick={handleRestartGame}>Restart Game</button>
@@ -17,6 +22,7 @@ const App = () => {
         numberOfID1={10} // Scissors
         numberOfID2={10} // Rock
         numberOfID3={10} // Paper
+        onGameOver={handleGameOver}
       />
     </>
   );
