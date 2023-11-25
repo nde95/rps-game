@@ -1,3 +1,5 @@
+import SweetAlert2 from "react-sweetalert2";
+import Swal from 'sweetalert2';
 import { GameSpace } from "./components/gameboard";
 import './App.css';
 import { useState } from "react";
@@ -9,9 +11,31 @@ const App = () => {
     setRestartGame((prev) => !prev);
   };
 
-  const handleGameOver = () => {
-    // Add logic for displaying a game over message or any other actions
-    alert('Game Over!');
+  const handleGameOver = (winnerId) => {
+    let winnerMessage = '';
+
+    // Determine which ID won and customize the message
+    switch (winnerId) {
+      case 1:
+        winnerMessage = 'Scissors won!';
+        break;
+      case 2:
+        winnerMessage = 'Rock won!';
+        break;
+      case 3:
+        winnerMessage = 'Paper won!';
+        break;
+      default:
+        winnerMessage = 'Game Over!';
+    }
+
+    // Game over alert
+    Swal.fire({
+      title: winnerMessage,
+      text: 'Do you want to continue',
+      icon: 'success',
+      confirmButtonText: 'Cool'
+    });
   };
 
   return (

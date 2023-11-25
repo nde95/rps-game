@@ -243,8 +243,9 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver }) => {
     useEffect(() => {
         const remainingIDs = new Set(gameObjects.map((obj) => obj.id));
         if (remainingIDs.size === 1) {
-            // Game over, trigger the callback
-            onGameOver();
+            // Game over, trigger the callback with the winning ID
+            const winnerId = remainingIDs.values().next().value;
+            onGameOver(winnerId);
         }
     }, [gameObjects, onGameOver]);
 
