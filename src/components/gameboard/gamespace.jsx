@@ -3,11 +3,7 @@ import GameObject from './gameobject';
 import './game.css';
 import snippingSound from '../../assets/sounds/snip.mp3'
 
-const GameSpace = () => {
-    // Number of each to spawn
-    const numberOfID1 = 10; // Scissors
-    const numberOfID2 = 10; // Rock
-    const numberOfID3 = 10; // Paper
+const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3 }) => {
 
     const generateGameObjects = () => {
         const objects = [];
