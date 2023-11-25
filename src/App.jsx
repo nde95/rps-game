@@ -20,9 +20,13 @@ const App = () => {
 
   return (
     <>
-      <button className="menuButton" onClick={handleRestartGame}>
-        Restart Game
-      </button>
+      <div className="menu">
+        <button className="menuButton" onClick={handleRestartGame}>
+          Restart Game
+        </button>
+        <input type="checkbox" className='menuButton' value='muted' id='muted' defaultChecked ></input>
+        <label for='muted'>Muted</label>
+      </div>
       {gameOver ? <GameOver winnerId={winnerId} handleRestartGame={handleRestartGame} /> : null}
       <GameSpace
         key={restartGame} // Add a key to GameSpace to force remount on restart
