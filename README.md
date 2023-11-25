@@ -17,8 +17,8 @@ Made in React/Vite.
 
 Scissors from www.fesliyanstudios.com
 
-Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14415">Pixabay</a>
+Paper Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14415">Pixabay</a>
 
-Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14722">Pixabay</a>
+Rock Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=14722">Pixabay</a>
 
 
