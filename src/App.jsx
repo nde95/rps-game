@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { GameSpace } from './components/gameboard';
 import './App.css';
 import GameOver from './components/alert/gameOver';
+import Swal from 'sweetalert2';
 
 const App = () => {
   const [restartGame, setRestartGame] = useState(false);
@@ -16,6 +17,18 @@ const App = () => {
 
   const handleMutedChange = () => {
     setMuted((prev) => !prev);
+
+    // Determine the icon based on the muted state
+    const icon = muted ? 'success' : 'error';
+
+    Swal.fire({
+      icon: icon,
+      title: 'Sounds ' + (muted ? 'On' : 'Off'),
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   const handleGameOver = (winnerId) => {
