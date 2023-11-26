@@ -65,8 +65,6 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
                     stepSize = 6;
                 }
 
-                // const stepSize = 6; // Adjust as needed
-
                 // Filter objects to get only the relevant targets for each instance
                 const otherObjects = prevGameObjects.filter((targetObj) => targetObj.id !== obj.id);
 
@@ -104,7 +102,6 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
 
                             // Check for catching
                             if (distanceToRock < 50) {
-                                // console.log('Scissors caught by Rock');
                                 if (!muted) {
                                     const crushed = new Audio(crushingSound)
                                     crushed.play()
@@ -114,18 +111,15 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
 
                             // Adjust movement based on distances
                             if (distanceToRock < distanceToPaper && distanceToRock < 100) {
-                                // console.log('Scissors Avoiding Rock');
                                 obj.state = 'avoiding';
                                 deltaX = (obj.left - targetRock.left > 0 ? stepSize : -stepSize);
                                 deltaY = (obj.top - targetRock.top > 0 ? stepSize : -stepSize);
                             } else {
-                                // console.log('Scissors Seeking Paper');
                                 obj.state = 'seeking';
                                 deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
-                            // console.log('Scissors Seeking Paper');
                             obj.state = 'seeking';
                             deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetPaper ? (targetPaper.top - obj.top > 0 ? stepSize : -stepSize) : 0;
@@ -140,7 +134,6 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
 
                             // Check for catching
                             if (distanceToPaper < 50) {
-                                // console.log('Rock caught by Paper');
                                 if (!muted) {
                                     const crumpled = new Audio(crumpleSound)
                                     crumpled.play()
@@ -151,18 +144,15 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
 
                             // Adjust movement based on distances
                             if (distanceToPaper < distanceToScissors && distanceToPaper < 100) {
-                                // console.log('Rock Avoiding Paper');
                                 obj.state = 'avoiding';
                                 deltaX = (obj.left - targetPaper.left > 0 ? stepSize : -stepSize);
                                 deltaY = (obj.top - targetPaper.top > 0 ? stepSize : -stepSize);
                             } else {
-                                // console.log('Rock Seeking Scissors');
                                 obj.state = 'seeking';
                                 deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
-                            // console.log('Rock Seeking Scissors');
                             obj.state = 'seeking';
                             deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetScissors ? (targetScissors.top - obj.top > 0 ? stepSize : -stepSize) : 0;
@@ -177,7 +167,6 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
 
                             // // Check for catching
                             if (distanceToScissors < 50) {
-                                // console.log('Paper caught by Scissors');
                                 if (!muted) {
                                     const snipped = new Audio(snippingSound)
                                     snipped.play()
@@ -187,18 +176,15 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
 
                             // Adjust movement based on distances
                             if (distanceToScissors < distanceToRock && distanceToScissors < 100) {
-                                // console.log('Paper Avoiding Scissors');
                                 obj.state = 'avoiding';
                                 deltaX = (obj.left - targetScissors.left > 0 ? stepSize : -stepSize);
                                 deltaY = (obj.top - targetScissors.top > 0 ? stepSize : -stepSize);
                             } else {
-                                // console.log('Paper Seeking Rock');
                                 obj.state = 'seeking';
                                 deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                                 deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
                             }
                         } else {
-                            // console.log('Paper Seeking Rock');
                             obj.state = 'seeking';
                             deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
                             deltaY = targetRock ? (targetRock.top - obj.top > 0 ? stepSize : -stepSize) : 0;
