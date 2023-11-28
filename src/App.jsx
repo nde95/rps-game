@@ -3,6 +3,7 @@ import { GameSpace } from './components/gameboard';
 import './App.css';
 import GameOver from './components/alert/gameOver';
 import Swal from 'sweetalert2';
+import MenuOptions from './components/menu/menuoptions';
 
 const App = () => {
   const [restartGame, setRestartGame] = useState(false);
@@ -41,9 +42,11 @@ const App = () => {
     setRestartGame((prev) => !prev);
   }, [muted]);
 
+
   return (
     <>
       <div className="menu">
+        <MenuOptions />
         <button className="menuButton" onClick={handleRestartGame}>
           Restart Game
         </button>
