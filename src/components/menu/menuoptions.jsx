@@ -24,12 +24,10 @@ const MenuOptions = ({ onSetObjectCounts }) => {
             <ReactModal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
-            // className="menuContainer"
             >
                 <div className="menuContainer">
                     <h2 className="menuTitle menuText">Menu Options</h2>
                     <h4 className="menuSubTitle menuText">Game Options</h4>
-                    {/* Custom number of spawns  */}
                     <p className="menuText">Number Of Each Object</p>
                     <input
                         type="text"

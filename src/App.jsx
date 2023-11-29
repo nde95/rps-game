@@ -22,7 +22,6 @@ const App = () => {
   const handleMutedChange = () => {
     setMuted((prev) => !prev);
 
-    // Determine the icon based on the muted state
     const icon = muted ? 'success' : 'error';
 
     Swal.fire({
@@ -40,7 +39,6 @@ const App = () => {
     setGameOver(true);
   };
 
-  // Use useEffect to update the GameSpace component when muted changes
   useEffect(() => {
     setRestartGame((prev) => !prev);
   }, [muted]);
@@ -87,7 +85,7 @@ const App = () => {
         numberOfID2={numberOfID2}
         numberOfID3={numberOfID3}
         onGameOver={handleGameOver}
-        muted={muted} // Pass the muted state to GameSpace
+        muted={muted}
       />
     </>
   );
