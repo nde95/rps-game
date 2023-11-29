@@ -13,6 +13,7 @@ const App = () => {
   const [numberOfID1, setNumberOfID1] = useState(10);
   const [numberOfID2, setNumberOfID2] = useState(10);
   const [numberOfID3, setNumberOfID3] = useState(10);
+  const [chaosMode, setChaosMode] = useState(false);
 
   const handleRestartGame = () => {
     setRestartGame((prev) => !prev);
@@ -32,6 +33,24 @@ const App = () => {
       showConfirmButton: false,
       timer: 1500,
     });
+  };
+
+  const handleChaosMode = () => {
+    setChaosMode((prev) => !prev);
+
+    const icon = chaosMode ? 'error' : 'success';
+
+    Swal.fire({
+      icon: icon,
+      title: 'Chaos Mode ' + (chaosMode ? 'Off' : 'On'),
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
+
+    handleRestartGame();
   };
 
   const handleGameOver = (winnerId) => {
@@ -64,7 +83,11 @@ const App = () => {
   return (
     <>
       <div className="menu">
-        <MenuOptions onSetObjectCounts={handleSetObjectCounts} />
+        <MenuOptions
+          onSetObjectCounts={handleSetObjectCounts}
+          chaosMode={chaosMode}
+          onChaosModeChange={handleChaosMode}
+        />
         <button className="menuButton" onClick={handleRestartGame}>
           Restart Game
         </button>
@@ -86,6 +109,7 @@ const App = () => {
         numberOfID3={numberOfID3}
         onGameOver={handleGameOver}
         muted={muted}
+        chaosMode={chaosMode}
       />
     </>
   );

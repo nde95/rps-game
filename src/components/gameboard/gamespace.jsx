@@ -5,7 +5,7 @@ import snippingSound from '../../assets/sounds/snip.mp3'
 import crushingSound from '../../assets/sounds/rock.mp3'
 import crumpleSound from '../../assets/sounds/crumple.mp3'
 
-const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted }) => {
+const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, chaosMode }) => {
     const [gameOver, setGameOver] = useState(false);
 
     const generateGameObjects = () => {
@@ -15,26 +15,26 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted })
             // Create ID 1 (Scissors) objects in the top left third
             objects.push({
                 id: 1,
-                left: Math.random() * (window.innerWidth / 3), // Left within the left third
-                top: Math.random() * (window.innerHeight / 3), // Top within the top third
+                left: chaosMode ? Math.random() * window.innerWidth : Math.random() * (window.innerWidth / 3),
+                top: chaosMode ? Math.random() * window.innerHeight : Math.random() * (window.innerHeight / 3),
             });
         }
 
+        // Generate ID 2 (Rocks) objects
         for (let i = 1; i <= numberOfID2; i++) {
-            // Create ID 2 (Rocks) objects in the top right third
             objects.push({
                 id: 2,
-                left: (window.innerWidth / 3) * 2 + Math.random() * (window.innerWidth / 3), // Left within the right third
-                top: Math.random() * (window.innerHeight / 3), // Top within the top third
+                left: chaosMode ? Math.random() * window.innerWidth : (window.innerWidth / 3) * 2 + Math.random() * (window.innerWidth / 3),
+                top: chaosMode ? Math.random() * window.innerHeight : Math.random() * (window.innerHeight / 3),
             });
         }
 
+        // Generate ID 3 (Papers) objects
         for (let i = 1; i <= numberOfID3; i++) {
-            // Create ID 3 (Papers) objects in the bottom center third
             objects.push({
                 id: 3,
-                left: (window.innerWidth / 3) + Math.random() * (window.innerWidth / 3), // Left within the center third
-                top: (window.innerHeight / 3) * 2.5 + Math.random() * (window.innerHeight / 3), // Top within the bottom third
+                left: chaosMode ? Math.random() * window.innerWidth : (window.innerWidth / 3) + Math.random() * (window.innerWidth / 3),
+                top: chaosMode ? Math.random() * window.innerHeight : (window.innerHeight / 3) * 2.5 + Math.random() * (window.innerHeight / 3),
             });
         }
 

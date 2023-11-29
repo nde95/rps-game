@@ -2,7 +2,7 @@ import { useState } from "react";
 import ReactModal from 'react-modal';
 import './menuoptions.css'
 
-const MenuOptions = ({ onSetObjectCounts }) => {
+const MenuOptions = ({ onSetObjectCounts, chaosMode, onChaosModeChange }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [numberOfObjects, setNumberOfObjects] = useState(10); // Default value
 
@@ -10,6 +10,11 @@ const MenuOptions = ({ onSetObjectCounts }) => {
         const value = parseInt(e.target.value, 10);
         setNumberOfObjects(isNaN(value) ? '' : value);
     };
+
+    const handleChaosModeChange = () => {
+        onChaosModeChange();
+        setModalIsOpen(false);
+    }
 
     const handleApply = () => {
         onSetObjectCounts(numberOfObjects);
@@ -48,6 +53,8 @@ const MenuOptions = ({ onSetObjectCounts }) => {
                             className='menuButton'
                             value='chaos'
                             id='chaos'
+                            checked={chaosMode}
+                            onChange={handleChaosModeChange}
                         />
                         <label className="menuLabel menuText" htmlFor='chaos'>Change Spawns to be truly random anywhere on the screen</label>
                     </div>
