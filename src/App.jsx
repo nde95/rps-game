@@ -49,6 +49,16 @@ const App = () => {
     setNumberOfID1(count);
     setNumberOfID2(count);
     setNumberOfID3(count);
+
+    Swal.fire({
+      icon: 'success',
+      title: "Count changed to " + count,
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+
     handleRestartGame()
   };
 
