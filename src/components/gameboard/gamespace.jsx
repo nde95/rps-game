@@ -101,7 +101,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToRock < 50) {
+                            if (distanceToRock < 35) {
                                 if (!muted) {
                                     const crushed = new Audio(crushingSound)
                                     crushed.play()
@@ -133,7 +133,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             const distanceToScissors = targetScissors ? calculateDistance(obj, targetScissors) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToPaper < 50) {
+                            if (distanceToPaper < 35) {
                                 if (!muted) {
                                     const crumpled = new Audio(crumpleSound)
                                     crumpled.play()
@@ -166,7 +166,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             const distanceToRock = targetRock ? calculateDistance(obj, targetRock) : Number.POSITIVE_INFINITY;
 
                             // // Check for catching
-                            if (distanceToScissors < 50) {
+                            if (distanceToScissors < 35) {
                                 if (!muted) {
                                     const snipped = new Audio(snippingSound)
                                     snipped.play()
