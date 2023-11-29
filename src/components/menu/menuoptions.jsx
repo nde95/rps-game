@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ReactModal from 'react-modal';
+import './menuoptions.css'
 
 const MenuOptions = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -13,23 +14,25 @@ const MenuOptions = () => {
             <ReactModal
                 isOpen={modalIsOpen}
                 onRequestClose={() => setModalIsOpen(false)}
+            // className="menuContainer"
             >
-                <h2>Menu Options</h2>
-                <br />
-                <h4>Game Options</h4>
-                <br />
-                {/* Custom number of spawns  */}
-                <p>Number Of Each</p>
-                <input type="text" className="menuTextInput" placeholder="Enter Number" />
-                <br />
-                <p>Chaos Mode</p>
-                <input type="checkbox"
-                    className='menuButton'
-                    value='chaos'
-                    id='chaos'
-                />
-                <label htmlFor='chaos'>Change Spawns to be truly random anywhere on the screen</label>
-                <button className="menuButton menuCloseButton" onClick={() => setModalIsOpen(false)}>Close</button>
+                <div className="menuContainer">
+                    <h2 className="menuTitle menuText">Menu Options</h2>
+                    <h4 className="menuSubTitle menuText">Game Options</h4>
+                    {/* Custom number of spawns  */}
+                    <p className="menuText">Number Of Each Object</p>
+                    <input type="text" className="menuTextInput" placeholder="Enter Number" />
+                    <p className="menuText">Chaos Mode</p>
+                    <div className="chaosGroup">
+                        <input type="checkbox"
+                            className='menuButton'
+                            value='chaos'
+                            id='chaos'
+                        />
+                        <label className="menuLabel menuText" htmlFor='chaos'>Change Spawns to be truly random anywhere on the screen</label>
+                    </div>
+                    <button className="menuButton menuCloseButton" onClick={() => setModalIsOpen(false)}>Close</button>
+                </div>
             </ReactModal>
         </>
     );
