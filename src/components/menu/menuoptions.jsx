@@ -2,11 +2,21 @@ import { useState } from "react";
 import ReactModal from 'react-modal';
 import './menuoptions.css'
 
-const MenuOptions = () => {
+const MenuOptions = ({ onSetObjectCounts }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [numberOfObjects, setNumberOfObjects] = useState(10); // Default value
+
+    const handleNumberChange = (e) => {
+        const value = parseInt(e.target.value, 10);
+        setNumberOfObjects(isNaN(value) ? '' : value);
+    };
+
+    const handleApply = () => {
+        onSetObjectCounts(numberOfObjects);
+        setModalIsOpen(false);
+    };
 
 
-    // Get rid of these awful breaks with CSS
     return (
         <>
             <button onClick={() => setModalIsOpen(true)}>Menu</button>
@@ -21,7 +31,19 @@ const MenuOptions = () => {
                     <h4 className="menuSubTitle menuText">Game Options</h4>
                     {/* Custom number of spawns  */}
                     <p className="menuText">Number Of Each Object</p>
-                    <input type="text" className="menuTextInput" placeholder="Enter Number" />
+                    <input
+                        type="text"
+                        className="menuTextInput"
+                        placeholder="Enter Number (Default Is 10)"
+                        value={numberOfObjects}
+                        onChange={handleNumberChange}
+                    />
+                    <button
+                        className="menuButton menuApplyButton"
+                        onClick={handleApply}
+                    >
+                        Apply
+                    </button>
                     <p className="menuText">Chaos Mode</p>
                     <div className="chaosGroup">
                         <input type="checkbox"

@@ -10,6 +10,9 @@ const App = () => {
   const [gameOver, setGameOver] = useState(false);
   const [winnerId, setWinnerId] = useState(null);
   const [muted, setMuted] = useState(true);
+  const [numberOfID1, setNumberOfID1] = useState(10);
+  const [numberOfID2, setNumberOfID2] = useState(10);
+  const [numberOfID3, setNumberOfID3] = useState(10);
 
   const handleRestartGame = () => {
     setRestartGame((prev) => !prev);
@@ -42,11 +45,18 @@ const App = () => {
     setRestartGame((prev) => !prev);
   }, [muted]);
 
+  const handleSetObjectCounts = (count) => {
+    setNumberOfID1(count);
+    setNumberOfID2(count);
+    setNumberOfID3(count);
+    handleRestartGame()
+  };
+
 
   return (
     <>
       <div className="menu">
-        <MenuOptions />
+        <MenuOptions onSetObjectCounts={handleSetObjectCounts} />
         <button className="menuButton" onClick={handleRestartGame}>
           Restart Game
         </button>
@@ -63,9 +73,9 @@ const App = () => {
       {gameOver ? <GameOver winnerId={winnerId} handleRestartGame={handleRestartGame} /> : null}
       <GameSpace
         key={restartGame}
-        numberOfID1={10}
-        numberOfID2={10}
-        numberOfID3={10}
+        numberOfID1={numberOfID1}
+        numberOfID2={numberOfID2}
+        numberOfID3={numberOfID3}
         onGameOver={handleGameOver}
         muted={muted} // Pass the muted state to GameSpace
       />
