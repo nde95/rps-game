@@ -15,6 +15,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
             // Create ID 1 (Scissors) objects in the top left third
             objects.push({
                 id: 1,
+                lastCaptureTime: 0,
                 left: chaosMode ? Math.random() * window.innerWidth : Math.random() * (window.innerWidth / 3),
                 top: chaosMode ? Math.random() * window.innerHeight : Math.random() * (window.innerHeight / 3),
             });
@@ -24,6 +25,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
         for (let i = 1; i <= numberOfID2; i++) {
             objects.push({
                 id: 2,
+                lastCaptureTime: 0,
                 left: chaosMode ? Math.random() * window.innerWidth : (window.innerWidth / 3) * 2 + Math.random() * (window.innerWidth / 3),
                 top: chaosMode ? Math.random() * window.innerHeight : Math.random() * (window.innerHeight / 3),
             });
@@ -33,6 +35,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
         for (let i = 1; i <= numberOfID3; i++) {
             objects.push({
                 id: 3,
+                lastCaptureTime: 0,
                 left: chaosMode ? Math.random() * window.innerWidth : (window.innerWidth / 3) + Math.random() * (window.innerWidth / 3),
                 top: chaosMode ? Math.random() * window.innerHeight : (window.innerHeight / 3) * 2.5 + Math.random() * (window.innerHeight / 3),
             });
@@ -64,6 +67,14 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                 } else {
                     stepSize = 6;
                 }
+
+                const getRandomCaptureInterval = () => {
+                    // Adjust the minimum and maximum values as needed
+                    const minInterval = 200;
+                    const maxInterval = 1000;
+
+                    return Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
+                };
 
                 // Filter objects to get only the relevant targets for each instance
                 const otherObjects = prevGameObjects.filter((targetObj) => targetObj.id !== obj.id);
@@ -101,19 +112,20 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             const distanceToPaper = targetPaper ? calculateDistance(obj, targetPaper) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToRock < 30) {
+                            if (distanceToRock < 30 && obj.lastCaptureTime + getRandomCaptureInterval() < Date.now()) {
                                 if (!muted) {
-                                    const crushed = new Audio(crushingSound)
-                                    crushed.play()
+                                    const crushed = new Audio(crushingSound);
+                                    crushed.play();
                                 }
-                                return { ...obj, id: 2 }; // Update ID and state
+                                return { ...obj, id: 2, lastCaptureTime: Date.now() }; // Update ID and state
                             }
+
 
                             // Adjust movement based on distances
                             if (distanceToRock < distanceToPaper && distanceToRock < 100) {
                                 obj.state = 'avoiding';
-                                deltaX = (obj.left - targetRock.left > 0 ? stepSize : -stepSize);
-                                deltaY = (obj.top - targetRock.top > 0 ? stepSize : -stepSize);
+                                deltaX = obj.left - targetRock.left > 0 ? stepSize : -stepSize;
+                                deltaY = obj.top - targetRock.top > 0 ? stepSize : -stepSize;
                             } else {
                                 obj.state = 'seeking';
                                 deltaX = targetPaper ? (targetPaper.left - obj.left > 0 ? stepSize : -stepSize) : 0;
@@ -133,20 +145,19 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             const distanceToScissors = targetScissors ? calculateDistance(obj, targetScissors) : Number.POSITIVE_INFINITY;
 
                             // Check for catching
-                            if (distanceToPaper < 30) {
+                            if (distanceToPaper < 30 && obj.lastCaptureTime + getRandomCaptureInterval() < Date.now()) {
                                 if (!muted) {
-                                    const crumpled = new Audio(crumpleSound)
-                                    crumpled.play()
+                                    const crumpled = new Audio(crumpleSound);
+                                    crumpled.play();
                                 }
-                                return { ...obj, id: 3 }; // Update ID and state
+                                return { ...obj, id: 3, lastCaptureTime: Date.now() }; // Update ID and state
                             }
-
 
                             // Adjust movement based on distances
                             if (distanceToPaper < distanceToScissors && distanceToPaper < 100) {
                                 obj.state = 'avoiding';
-                                deltaX = (obj.left - targetPaper.left > 0 ? stepSize : -stepSize);
-                                deltaY = (obj.top - targetPaper.top > 0 ? stepSize : -stepSize);
+                                deltaX = obj.left - targetPaper.left > 0 ? stepSize : -stepSize;
+                                deltaY = obj.top - targetPaper.top > 0 ? stepSize : -stepSize;
                             } else {
                                 obj.state = 'seeking';
                                 deltaX = targetScissors ? (targetScissors.left - obj.left > 0 ? stepSize : -stepSize) : 0;
@@ -165,20 +176,20 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             const distanceToScissors = calculateDistance(obj, targetScissors);
                             const distanceToRock = targetRock ? calculateDistance(obj, targetRock) : Number.POSITIVE_INFINITY;
 
-                            // // Check for catching
-                            if (distanceToScissors < 30) {
+                            // Check for catching
+                            if (distanceToScissors < 30 && obj.lastCaptureTime + getRandomCaptureInterval() < Date.now()) {
                                 if (!muted) {
-                                    const snipped = new Audio(snippingSound)
-                                    snipped.play()
+                                    const snipped = new Audio(snippingSound);
+                                    snipped.play();
                                 }
-                                return { ...obj, id: 1 }; // Update ID and state
+                                return { ...obj, id: 1, lastCaptureTime: Date.now() }; // Update ID and state
                             }
 
                             // Adjust movement based on distances
                             if (distanceToScissors < distanceToRock && distanceToScissors < 100) {
                                 obj.state = 'avoiding';
-                                deltaX = (obj.left - targetScissors.left > 0 ? stepSize : -stepSize);
-                                deltaY = (obj.top - targetScissors.top > 0 ? stepSize : -stepSize);
+                                deltaX = obj.left - targetScissors.left > 0 ? stepSize : -stepSize;
+                                deltaY = obj.top - targetScissors.top > 0 ? stepSize : -stepSize;
                             } else {
                                 obj.state = 'seeking';
                                 deltaX = targetRock ? (targetRock.left - obj.left > 0 ? stepSize : -stepSize) : 0;
@@ -232,7 +243,6 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
     }, []);
 
     useEffect(() => {
-
         const remainingIDs = new Set(gameObjects.map((obj) => obj.id));
         if (remainingIDs.size === 1 && !gameOver) {
             setGameOver(true);
