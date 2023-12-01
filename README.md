@@ -2,6 +2,8 @@
 
 Recreation of the real time rock paper scissors game I saw in a video.
 
+![RPS gif](https://i.imgur.com/dCv0vX9.gif)
+
 Made in React/Vite.
 
 # Features and Gameplay
