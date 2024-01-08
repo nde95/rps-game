@@ -2,7 +2,17 @@
 
 Recreation of the real time rock paper scissors game I saw in a video.
 
+![RPS gif](https://i.imgur.com/dCv0vX9.gif)
+
 Made in React/Vite.
+
+# Features and Gameplay
+
+- Realtime simulation of a Rock Paper and Scissors "tournament"
+- Game area is based entirely on screen size
+- Optional sounds mode
+- Customizable spawn amount for the amount of objects on each team
+- "Chaos Mode" which removes all locational based spawning 
 
 # Icons
 
