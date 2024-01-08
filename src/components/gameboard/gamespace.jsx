@@ -7,6 +7,9 @@ import crumpleSound from '../../assets/sounds/crumple.mp3'
 
 const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, chaosMode }) => {
     const [gameOver, setGameOver] = useState(false);
+    const [snippingAudio, setSnippingAudio] = useState(new Audio(snippingSound));
+    const [crushingAudio, setCrushingAudio] = useState(new Audio(crushingSound));
+    const [crumpleAudio, setCrumpleAudio] = useState(new Audio(crumpleSound));
 
     const generateGameObjects = () => {
         const objects = [];
@@ -48,6 +51,23 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
     };
 
     const [gameObjects, setGameObjects] = useState(generateGameObjects);
+
+    useEffect(() => {
+        // Preload audio when the component mounts
+        snippingAudio.load();
+        crushingAudio.load();
+        crumpleAudio.load();
+
+        // Clean up the audio objects when the component unmounts
+        return () => {
+            snippingAudio.pause();
+            snippingAudio.currentTime = 0;
+            crushingAudio.pause();
+            crushingAudio.currentTime = 0;
+            crumpleAudio.pause();
+            crumpleAudio.currentTime = 0;
+        };
+    }, [snippingAudio, crushingAudio, crumpleAudio]);
 
     // Movement of created objects
     const updateGameObjects = () => {
@@ -114,8 +134,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             // Check for catching
                             if (distanceToRock < 30 && obj.lastCaptureTime + getRandomCaptureInterval() < Date.now()) {
                                 if (!muted) {
-                                    const crushed = new Audio(crushingSound);
-                                    crushed.play();
+                                    crushingAudio.play();
                                 }
                                 return { ...obj, id: 2, lastCaptureTime: Date.now() }; // Update ID and state
                             }
@@ -147,8 +166,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             // Check for catching
                             if (distanceToPaper < 30 && obj.lastCaptureTime + getRandomCaptureInterval() < Date.now()) {
                                 if (!muted) {
-                                    const crumpled = new Audio(crumpleSound);
-                                    crumpled.play();
+                                    crumpleAudio.play();
                                 }
                                 return { ...obj, id: 3, lastCaptureTime: Date.now() }; // Update ID and state
                             }
@@ -179,8 +197,7 @@ const GameSpace = ({ numberOfID1, numberOfID2, numberOfID3, onGameOver, muted, c
                             // Check for catching
                             if (distanceToScissors < 30 && obj.lastCaptureTime + getRandomCaptureInterval() < Date.now()) {
                                 if (!muted) {
-                                    const snipped = new Audio(snippingSound);
-                                    snipped.play();
+                                    snippingAudio.play();
                                 }
                                 return { ...obj, id: 1, lastCaptureTime: Date.now() }; // Update ID and state
                             }
