@@ -23,10 +23,16 @@
   margin-bottom: 0;
 }
 
-.menuTextInput {
-  margin-bottom: 5rem;
-}
+/* .menuTextInput {
+  
+} */
 
 .menuCloseButton {
   margin-top: 5rem;
+}
+
+.error {
+  color: red;
+  font-size: 10px;
+  margin-bottom: 5rem;
 }
