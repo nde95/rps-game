@@ -1,6 +1,8 @@
 # RPS Battle
 
-Recreation of the real time rock paper scissors game I saw in a video.
+Recreation of the real time rock paper scissors game I saw in a twitter video.
+
+I thought it looked fun and figured it would be a great project to make.
 
 ![RPS gif](https://i.imgur.com/dCv0vX9.gif)
 
