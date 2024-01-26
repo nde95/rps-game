@@ -4,6 +4,8 @@ Recreation of the real time rock paper scissors game I saw in a twitter video.
 
 I thought it looked fun and instead of finding it online I figured it would be a great project to make myself.
 
+[Try it, it's fun](https://rps-tournament.vercel.app)
+
 ![RPS gif](https://i.imgur.com/dCv0vX9.gif)
 
 Made in React/Vite.
