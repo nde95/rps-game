@@ -1,4 +1,4 @@
-# RPS Battle
+# RPS Clash
 
 Recreation of the real time rock paper scissors game I saw in a twitter video.
 
