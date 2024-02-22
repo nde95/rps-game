@@ -13,10 +13,10 @@ Made in React/Vite.
 # Features and Gameplay
 
 - Realtime simulation of a Rock Paper and Scissors "tournament"
-- Game area is based entirely on screen size
+- Game area is based entirely on screen size, which makes it work perfectly on mobile as well. 
 - Play with sounds or keep them muted
 - Customizable spawn amount for the amount of objects on each team
-- "Chaos Mode" which removes all locational based spawning 
+- "Chaos Mode" which removes spawn location restrictions making them anywhere on the screen.
 
 # Icons
 
